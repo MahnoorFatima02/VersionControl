@@ -3,41 +3,28 @@ import java.util.Scanner;
 public class PalindromeChecker {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string to check if it's a palindrome: ");
         String input = scanner.nextLine();
+        scanner.close();
 
         String transformed = transformInput(input);
 
-        boolean isPalindrome = checkPalindrome(transformed);
-        if (isPalindrome) {
-            System.out.println("The transformed input is a palindrome.");
+        if (isPalindrome(transformed)) {
+            System.out.println("The input is a palindrome.");
         } else {
-            System.out.println("The transformed input is not a palindrome.");
+            System.out.println("The input is not a palindrome.");
         }
     }
 
+    // Transforms input by removing non-alphanumeric characters and converting to lowercase
     public static String transformInput(String input) {
-        input = input.toLowerCase();
-        input = input.replace(",", "");
-        input = input.replace("!", "");
-        return input;
+        return input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
     }
 
-    public static boolean checkPalindrome(String input) {
-        String reversed = reverseString(input);
-        if (input.equals(reversed)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static String reverseString(String input) {
-        StringBuilder reversed = new StringBuilder();
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed.append(input.charAt(i));
-        }
-        return reversed.toString();
+    // Checks if the given string is a palindrome
+    public static boolean isPalindrome(String input) {
+        String reversed = new StringBuilder(input).reverse().toString();
+        return input.equals(reversed);
     }
 }
