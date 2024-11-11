@@ -3,41 +3,36 @@ import java.util.Scanner;
 public class PalindromeChecker {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a string to check if it is a palindrome: ");
         String input = scanner.nextLine();
 
-        String transformed = transformInput(input);
+        String filteredString = filterInput(input);
 
-        boolean isPalindrome = checkPalindrome(transformed);
+        // comparing input string and its reverse string
+        boolean isPalindrome = checkPalindrome(filteredString);
         if (isPalindrome) {
-            System.out.println("The transformed input is a palindrome.");
+            System.out.println("The input \"" + input + "\" is a palindrome.");
         } else {
-            System.out.println("The transformed input is not a palindrome.");
+            System.out.println("The input \"" + input + "\" is not a palindrome.");
         }
     }
 
-    public static String transformInput(String input) {
+    // filters string to lower case and removing extra characters
+    public static String filterInput(String input) {
         input = input.toLowerCase();
-        input = input.replace(",", "");
-        input = input.replace("!", "");
+        input = input.replaceAll("[,!]","");
         return input;
     }
 
+    // check if the input is palindrome
     public static boolean checkPalindrome(String input) {
-        String reversed = reverseString(input);
-        if (input.equals(reversed)) {
-            return true;
-        } else {
-            return false;
-        }
+        String reversedInput = reverseStringCharacters(input);
+        return input.equals(reversedInput);
     }
 
-    public static String reverseString(String input) {
-        StringBuilder reversed = new StringBuilder();
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed.append(input.charAt(i));
-        }
-        return reversed.toString();
+    // returns a new string from reversing characters of existing one
+    public static String reverseStringCharacters(String input) {
+        return new StringBuilder(input).reverse().toString();
     }
 }
